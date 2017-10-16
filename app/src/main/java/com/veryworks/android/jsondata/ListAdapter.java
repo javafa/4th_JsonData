@@ -1,5 +1,6 @@
 package com.veryworks.android.jsondata;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.veryworks.android.jsondata.model.User;
 
 import java.util.List;
@@ -16,9 +18,11 @@ import java.util.List;
  */
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>{
+    Context context;
     List<User> data;
-    public ListAdapter(List<User> data){
+    public ListAdapter(List<User> data, Context context){
         this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -34,6 +38,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.Holder>{
         //holder.imageView.setImageURI();
         holder.textId.setText(user.getId()+"");
         holder.textLogin.setText(user.getLogin());
+        // 이미지 불러오기
+        Glide.with(context)                 // 글라이드 초기화
+                .load(user.getAvatar_url()) // 주소에서 이미지 가져오기
+                .into(holder.imageView);
     }
 
     @Override

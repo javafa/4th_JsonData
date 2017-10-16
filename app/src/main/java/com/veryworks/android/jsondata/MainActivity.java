@@ -6,9 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.veryworks.android.jsondata.model.User;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,25 +40,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<User> parse(String string){
-        List<User> result = new ArrayList<>();
-        // 앞의 문자 두개 없애기 [ {
-        string = string.substring( string.indexOf("{")+1 );
-        // 뒤의 문자 두개 없애기 } ]
-        string = string.substring(0, string.lastIndexOf("}"));
-        // 문자열 분리하기
-        String array[] = string.split("\\},\\{");
-        for(String item : array){
-            User user = new User();
-            // item 문자열을 분리해서 user의 멤버변수에 담는다
-            //result.add(user);
-            System.out.println(item);
-        }
+        Gson gson = new Gson();
+        User user[] = gson.fromJson(string, User[].class);
+        List<User> result = Arrays.asList(user);
         return result;
     }
 
     List<User> data;
     private void setList(){
-        ListAdapter adapter = new ListAdapter(data);
+        ListAdapter adapter = new ListAdapter(data, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

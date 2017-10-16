@@ -20,6 +20,18 @@ public class User {
         return avatar_url;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
     String gravatar_id;
     String url;
     String html_url;
