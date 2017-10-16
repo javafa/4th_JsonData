@@ -22,18 +22,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void load(){
-        System.out.println("=================load()");
         // data 변수에 불러온 데이터를 입력
         new AsyncTask<Void, Void, String>(){
             @Override
             protected String doInBackground(Void... voids) {
-                System.out.println("=================doInBackground()");
                 String str = Remote.getData("https://api.github.com/users");
                 return str;
             }
             @Override
             protected void onPostExecute(String jsonString) {
-                System.out.println("=================onPostExecute()");
                 // jsonString 을 parsing
                 data = parse(jsonString);
                 setList();
@@ -48,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // 뒤의 문자 두개 없애기 } ]
         string = string.substring(0, string.lastIndexOf("}"));
         // 문자열 분리하기
-        System.out.println("=================string="+string);
         String array[] = string.split("\\},\\{");
-        System.out.println("=================array().size="+array.length);
         for(String item : array){
             User user = new User();
             // item 문자열을 분리해서 user의 멤버변수에 담는다
